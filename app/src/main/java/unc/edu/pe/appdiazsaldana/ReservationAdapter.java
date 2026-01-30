@@ -13,7 +13,7 @@ import java.util.List;
 public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.ReservationViewHolder> {
 
     private List<Reservation> reservations;
-    private final OnItemClickListener listener;
+    private final OnItemClickListener listener; //xdd
 
     public interface OnItemClickListener {
         void onItemClick(Reservation reservation);
