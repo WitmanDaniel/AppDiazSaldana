@@ -1,14 +1,12 @@
-// En un nuevo archivo llamado Reservation.java
 package unc.edu.pe.appdiazsaldana;
 
 import java.io.Serializable;
 
-// Implementamos Serializable para poder pasar el objeto entre Activities
 public class Reservation implements Serializable {
-    private long id; // Un ID único para cada reserva
+    private long id;
     private String clientName;
     private int tableNumber;
-    private String diningArea; // "Salón Principal", "Terraza", "VIP"
+    private String diningArea;
     private String reservationDate;
     private int numberOfPeople;
     private String courtesyDrink;
@@ -21,11 +19,10 @@ public class Reservation implements Serializable {
         this.diningArea = diningArea;
         this.reservationDate = reservationDate;
         this.numberOfPeople = numberOfPeople;
-        // La bebida de cortesía se asigna según el número de personas
+
         updateCourtesyDrink();
     }
 
-    // Getters y Setters para cada campo...
     public long getId() { return id; }
     public String getClientName() { return clientName; }
     public void setClientName(String clientName) { this.clientName = clientName; }
@@ -38,11 +35,10 @@ public class Reservation implements Serializable {
     public int getNumberOfPeople() { return numberOfPeople; }
     public void setNumberOfPeople(int numberOfPeople) {
         this.numberOfPeople = numberOfPeople;
-        updateCourtesyDrink(); // Actualizar la bebida si cambia el número de personas
+        updateCourtesyDrink();
     }
     public String getCourtesyDrink() { return courtesyDrink; }
 
-    // Método para actualizar la bebida de cortesía automáticamente
     private void updateCourtesyDrink() {
         if (this.numberOfPeople > 5) {
             this.courtesyDrink = "Pisco Sour de Cortesía";
@@ -51,16 +47,15 @@ public class Reservation implements Serializable {
         }
     }
 
-    // Método para obtener la imagen asociada al área
     public static int getImageResourceForArea(String diningArea) {
         switch (diningArea) {
             case "Terraza":
-                return R.drawable.ic_area_terraza; // Debes crear este drawable
+                return R.drawable.ic_area_terraza;
             case "Salón VIP":
-                return R.drawable.ic_area_vip;     // Debes crear este drawable
+                return R.drawable.ic_area_vip;
             case "Salón Principal":
             default:
-                return R.drawable.ic_area_principal; // Debes crear este drawable
+                return R.drawable.ic_area_principal;
         }
     }
 }

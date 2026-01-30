@@ -23,18 +23,17 @@ public class MainActivity extends AppCompatActivity {
     private List<Reservation> allReservations;
     private EditText searchInput;
 
-    // Lanzador para recibir el resultado de la pantalla de edición
+
     private final ActivityResultLauncher<Intent> editReservationLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                     Reservation updatedReservation = (Reservation) result.getData().getSerializableExtra("UPDATED_RESERVATION");
                     if (updatedReservation != null) {
-                        // Actualizamos la lista original y notificamos al adaptador
                         for (int i = 0; i < allReservations.size(); i++) {
                             if (allReservations.get(i).getId() == updatedReservation.getId()) {
                                 allReservations.set(i, updatedReservation);
-                                adapter.updateReservations(new ArrayList<>(allReservations)); // Pasamos una copia
+                                adapter.updateReservations(new ArrayList<>(allReservations));
                                 break;
                             }
                         }
@@ -50,19 +49,17 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view_reservations);
         searchInput = findViewById(R.id.search_input);
 
-        loadInitialData(); // Cargamos los datos de ejemplo
+        loadInitialData();
 
-        // Configuración del RecyclerView
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ReservationAdapter(allReservations, reservation -> {
-            // Acción al hacer clic en una reserva: abrir la pantalla de edición
             Intent intent = new Intent(MainActivity.this, EditReservationActivity.class);
             intent.putExtra("RESERVATION_TO_EDIT", reservation);
             editReservationLauncher.launch(intent);
         });
         recyclerView.setAdapter(adapter);
 
-        // Configuración de la barra de búsqueda
         searchInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -78,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadInitialData() {
-        // Datos de ejemplo
         allReservations = new ArrayList<>();
         allReservations.add(new Reservation(1, "Juan Pérez", 5, "Salón Principal", "20/05/2024", 4));
         allReservations.add(new Reservation(2, "Ana Gómez", 2, "Terraza", "22/05/2024", 6));
@@ -86,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void filter(String text) {
-        // Filtramos la lista de reservas por nombre de cliente
         List<Reservation> filteredList = allReservations.stream()
                 .filter(reservation -> reservation.getClientName().toLowerCase().contains(text.toLowerCase()))
                 .collect(Collectors.toList());

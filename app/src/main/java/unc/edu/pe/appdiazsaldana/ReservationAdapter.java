@@ -13,7 +13,7 @@ import java.util.List;
 public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.ReservationViewHolder> {
 
     private List<Reservation> reservations;
-    private final OnItemClickListener listener; //xdd
+    private final OnItemClickListener listener;
 
     public interface OnItemClickListener {
         void onItemClick(Reservation reservation);
@@ -44,7 +44,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
 
     public void updateReservations(List<Reservation> newReservations) {
         this.reservations = newReservations;
-        notifyDataSetChanged(); // Notifica al RecyclerView que los datos cambiaron
+        notifyDataSetChanged();
     }
 
     static class ReservationViewHolder extends RecyclerView.ViewHolder {

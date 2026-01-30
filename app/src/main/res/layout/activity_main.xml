@@ -13,9 +13,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:hint="Buscar por nombre de cliente"
-        app:layout_constraintTop_toTopOf="parent"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_reservations"

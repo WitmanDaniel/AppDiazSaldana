@@ -1,4 +1,3 @@
-// En un nuevo archivo EditReservationActivity.java
 package unc.edu.pe.appdiazsaldana;
 
 import android.app.DatePickerDialog;
@@ -28,7 +27,7 @@ public class EditReservationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_reservation);
 
-        // Vinculación de vistas
+
         editClientName = findViewById(R.id.edit_client_name);
         editTableNumber = findViewById(R.id.edit_table_number);
         editNumberOfPeople = findViewById(R.id.edit_number_of_people);
@@ -38,29 +37,26 @@ public class EditReservationActivity extends AppCompatActivity {
         imageArea = findViewById(R.id.image_area_edit);
         saveButton = findViewById(R.id.button_save);
 
-        // Obtener la reserva pasada desde MainActivity
+
         currentReservation = (Reservation) getIntent().getSerializableExtra("RESERVATION_TO_EDIT");
 
-        // Cargar los datos en el formulario
         if (currentReservation != null) {
             loadReservationData();
         }
 
-        // Configurar el selector de áreas
         String[] areas = {"Salón Principal", "Terraza", "Salón VIP"};
         ArrayAdapter<String> areaAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, areas);
         editDiningArea.setAdapter(areaAdapter);
 
-        // Actualizar imagen al cambiar de área
+
         editDiningArea.setOnItemClickListener((parent, view, position, id) -> {
             String selectedArea = (String) parent.getItemAtPosition(position);
             imageArea.setImageResource(Reservation.getImageResourceForArea(selectedArea));
         });
 
-        // Configurar el selector de fecha
         editReservationDate.setOnClickListener(v -> showDatePickerDialog());
 
-        // Configurar el botón de guardar
+
         saveButton.setOnClickListener(v -> saveChanges());
     }
 
@@ -90,23 +86,23 @@ public class EditReservationActivity extends AppCompatActivity {
     }
 
     private void saveChanges() {
-        // Validar que los campos no estén vacíos (implementación simple)
+
         if (editClientName.getText().toString().isEmpty() || editTableNumber.getText().toString().isEmpty()) {
             Toast.makeText(this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Actualizar el objeto Reservation
+
         currentReservation.setClientName(editClientName.getText().toString());
         currentReservation.setTableNumber(Integer.parseInt(editTableNumber.getText().toString()));
         currentReservation.setDiningArea(editDiningArea.getText().toString());
         currentReservation.setReservationDate(editReservationDate.getText().toString());
         currentReservation.setNumberOfPeople(Integer.parseInt(editNumberOfPeople.getText().toString()));
 
-        // Crear un intent para devolver los datos actualizados
+
         Intent resultIntent = new Intent();
         resultIntent.putExtra("UPDATED_RESERVATION", currentReservation);
         setResult(RESULT_OK, resultIntent);
-        finish(); // Cerrar la actividad y volver a MainActivity
+        finish();
     }
 }
